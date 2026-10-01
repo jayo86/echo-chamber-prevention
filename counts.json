@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-01T12:35:53+10:00",
+  "generated": "2026-10-01T12:57:55+10:00",
   "calendar": "Granny 🩷",
   "start_date": "2026-08-03",
   "today": "2026-10-01",
@@ -7,22 +7,29 @@
     {
       "title": "Keir's",
       "label": "",
-      "days_to_date": 13,
+      "days_to_date": 17,
       "days_booked_ahead": 3,
-      "total": 16
+      "total": 20
     },
     {
       "title": "Cormack's",
+      "label": "",
+      "days_to_date": 7,
+      "days_booked_ahead": 1,
+      "total": 8
+    },
+    {
+      "title": "Gaye Holland",
       "label": "",
       "days_to_date": 6,
       "days_booked_ahead": 1,
       "total": 7
     },
     {
-      "title": "Gaye Holland",
+      "title": "Gillespie's",
       "label": "",
-      "days_to_date": 6,
-      "days_booked_ahead": 0,
+      "days_to_date": 5,
+      "days_booked_ahead": 1,
       "total": 6
     },
     {
@@ -33,13 +40,6 @@
       "total": 5
     },
     {
-      "title": "Gillsepie's",
-      "label": "",
-      "days_to_date": 4,
-      "days_booked_ahead": 1,
-      "total": 5
-    },
-    {
       "title": "JT",
       "label": "",
       "days_to_date": 4,
@@ -47,10 +47,17 @@
       "total": 5
     },
     {
-      "title": "Keirs",
+      "title": "Palm Cove",
       "label": "",
-      "days_to_date": 4,
-      "days_booked_ahead": 0,
+      "days_to_date": 0,
+      "days_booked_ahead": 5,
+      "total": 5
+    },
+    {
+      "title": "Sue and gavin",
+      "label": "",
+      "days_to_date": 0,
+      "days_booked_ahead": 4,
       "total": 4
     },
     {
@@ -75,6 +82,13 @@
       "total": 3
     },
     {
+      "title": "Gillespie's or Sebastian's",
+      "label": "",
+      "days_to_date": 2,
+      "days_booked_ahead": 0,
+      "total": 2
+    },
+    {
       "title": "Julianne",
       "label": "",
       "days_to_date": 2,
@@ -96,48 +110,6 @@
       "total": 2
     },
     {
-      "title": "Cormacks",
-      "label": "",
-      "days_to_date": 1,
-      "days_booked_ahead": 0,
-      "total": 1
-    },
-    {
-      "title": "Gillespie's or Sebastian's",
-      "label": "",
-      "days_to_date": 1,
-      "days_booked_ahead": 0,
-      "total": 1
-    },
-    {
-      "title": "Gillespies or Sebastian's",
-      "label": "",
-      "days_to_date": 1,
-      "days_booked_ahead": 0,
-      "total": 1
-    },
-    {
-      "title": "Gillspie's",
-      "label": "",
-      "days_to_date": 1,
-      "days_booked_ahead": 0,
-      "total": 1
-    },
-    {
-      "title": "Palm Cove",
-      "label": "",
-      "days_to_date": 0,
-      "days_booked_ahead": 5,
-      "total": 5
-    },
-    {
-      "title": "Sue and gavin",
-      "label": "",
-      "days_to_date": 0,
-      "days_booked_ahead": 4,
-      "total": 4
-    },
-    {
       "title": "Peppers",
       "label": "",
       "days_to_date": 0,
@@ -150,13 +122,6 @@
       "days_to_date": 0,
       "days_booked_ahead": 2,
       "total": 2
-    },
-    {
-      "title": "Gaye Holland?",
-      "label": "",
-      "days_to_date": 0,
-      "days_booked_ahead": 1,
-      "total": 1
     },
     {
       "title": "Mary mckillop",
