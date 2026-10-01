@@ -109,9 +109,24 @@ def get_events(session, cal_id):
 
 
 def clean_title(title):
-    # Normalise curly quotes and spacing so "Keir’s" and "Keir's" count together
+    # Normalise curly quotes, spacing and trailing "?" ("Gaye Holland?" -> "Gaye Holland")
     t = (title or "(no title)").replace("’", "'").replace("‘", "'")
-    return " ".join(t.split())
+    t = " ".join(t.split()).rstrip("?").strip()
+    return t or "(no title)"
+
+
+# Manual typo fixes: "wrong spelling" -> "right spelling". Matching ignores case and apostrophes.
+ALIASES = {
+    # "Gillspie's": "Gillsepie's",
+}
+
+
+def title_key(title):
+    """Grouping key: case-insensitive, apostrophes ignored, so Keirs == Keir's."""
+    return title.replace("'", "").lower()
+
+
+_ALIAS_KEYS = {title_key(k): v for k, v in ALIASES.items()}
 
 
 def event_days(ev, default_tz):
@@ -129,9 +144,10 @@ def event_days(ev, default_tz):
 
 
 def count(events, labels, start_date, today, default_tz):
-    past = defaultdict(set)    # title -> dates up to and including today
-    future = defaultdict(set)  # title -> dates after today
-    title_label = {}
+    past = defaultdict(set)    # key -> dates up to and including today
+    future = defaultdict(set)  # key -> dates after today
+    variants = defaultdict(lambda: defaultdict(int))  # key -> spelling -> event count
+    key_label = {}
     skipped = {"birthday/memo": 0, "deleted": 0, "recurring": []}
 
     for ev in events:
@@ -142,25 +158,32 @@ def count(events, labels, start_date, today, default_tz):
             skipped["birthday/memo"] += 1
             continue
         title = clean_title(ev.get("title"))
+        title = _ALIAS_KEYS.get(title_key(title), title)
+        key = title_key(title)
+        variants[key][title] += 1
         if ev.get("recurrences"):
             skipped["recurring"].append(title)  # only first occurrence counted
-        title_label.setdefault(title, labels.get(ev.get("label_id"), ""))
+        key_label.setdefault(key, labels.get(ev.get("label_id"), ""))
         for d in event_days(ev, default_tz):
             if d < start_date:
                 continue
-            (past if d <= today else future)[title].add(d)
+            (past if d <= today else future)[key].add(d)
 
-    titles = set(past) | set(future)
+    def display(key):
+        # Most-used spelling wins; on a tie prefer the one with an apostrophe
+        return max(variants[key].items(), key=lambda kv: (kv[1], "'" in kv[0]))[0]
+
+    keys = set(past) | set(future)
     rows = sorted(
         (
             {
-                "title": t,
-                "label": title_label.get(t, ""),
-                "days_to_date": len(past[t]),
-                "days_booked_ahead": len(future[t]),
-                "total": len(past[t]) + len(future[t]),
+                "title": display(k),
+                "label": key_label.get(k, ""),
+                "days_to_date": len(past[k]),
+                "days_booked_ahead": len(future[k]),
+                "total": len(past[k]) + len(future[k]),
             }
-            for t in titles
+            for k in keys
         ),
         key=lambda r: (-r["total"], -r["days_to_date"], r["title"].lower()),
     )
