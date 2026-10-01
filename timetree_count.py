@@ -162,7 +162,7 @@ def count(events, labels, start_date, today, default_tz):
             }
             for t in titles
         ),
-        key=lambda r: (-r["days_to_date"], -r["total"], r["title"].lower()),
+        key=lambda r: (-r["total"], -r["days_to_date"], r["title"].lower()),
     )
     return rows, skipped
 
