@@ -117,7 +117,8 @@ def clean_title(title):
 
 # Manual typo fixes: "wrong spelling" -> "right spelling". Matching ignores case and apostrophes.
 ALIASES = {
-    # "Gillspie's": "Gillsepie's",
+    "Gillsepie's": "Gillespie's",
+    "Gillspie's": "Gillespie's",
 }
 
 
