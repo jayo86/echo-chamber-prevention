@@ -1,0 +1,40 @@
+name: Update counts
+
+on:
+  schedule:
+    - cron: "17 * * * *"   # hourly at :17 (UTC, doesn't matter for hourly)
+  workflow_dispatch:        # lets you hit "Run workflow" manually
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-counts
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install deps
+        run: pip install requests tzdata
+
+      - name: Pull TimeTree and count
+        env:
+          TIMETREE_EMAIL: ${{ secrets.TIMETREE_EMAIL }}
+          TIMETREE_PASSWORD: ${{ secrets.TIMETREE_PASSWORD }}
+        run: python timetree_count.py
+
+      - name: Commit counts.json
+        run: |
+          git config user.name "counts-bot"
+          git config user.email "counts-bot@users.noreply.github.com"
+          git add counts.json
+          git diff --cached --quiet || git commit -m "Update counts"
+          git push

@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Day Count</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #111111;
+    --panel: #1a1a1a;
+    --line: #2a2a2a;
+    --text: #f2f2f2;
+    --muted: #8a8a8a;
+    --done: #0aa37f;
+    --ahead: #d9a441;
+    --accent: #e05a47;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Space Grotesk", system-ui, sans-serif;
+    padding: 32px 16px 64px;
+  }
+  main { max-width: 760px; margin: 0 auto; }
+  header { display: flex; justify-content: space-between; align-items: end; gap: 16px; flex-wrap: wrap; margin-bottom: 28px; }
+  h1 { font-size: clamp(2rem, 6vw, 3rem); margin: 0; letter-spacing: -0.03em; line-height: 1; }
+  h1 span { color: var(--accent); }
+  .meta { color: var(--muted); font-size: 0.85rem; text-align: right; }
+  .meta b { color: var(--text); font-weight: 600; }
+  .legend { display: flex; gap: 18px; font-size: 0.8rem; color: var(--muted); margin-bottom: 14px; }
+  .legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+  .row {
+    display: grid;
+    grid-template-columns: 2.2rem 1fr;
+    gap: 14px;
+    align-items: center;
+    padding: 14px 16px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    margin-bottom: 8px;
+  }
+  .rank { font-family: "JetBrains Mono", monospace; color: var(--muted); font-size: 0.9rem; }
+  .row:first-child .rank { color: var(--accent); }
+  .name { font-weight: 600; font-size: 1.05rem; margin-bottom: 10px; }
+  .bars { display: grid; gap: 6px; }
+  .br { display: grid; grid-template-columns: 1fr 3rem; gap: 10px; align-items: center; }
+  .track { height: 14px; background: var(--line); border-radius: 4px; overflow: hidden; }
+  .fill { height: 100%; border-radius: 4px; }
+  .fill.d { background: var(--done); }
+  .fill.a { background: var(--ahead); }
+  .v { font-family: "JetBrains Mono", monospace; font-size: 0.9rem; text-align: right; }
+  .v.a { color: var(--muted); }
+  .msg { color: var(--muted); padding: 40px 0; text-align: center; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Day<span>.</span>Count</h1>
+    <div class="meta" id="meta">Loading...</div>
+  </header>
+  <div class="legend">
+    <span><i style="background:var(--done)"></i>Days so far</span>
+    <span><i style="background:var(--ahead)"></i>Booked ahead</span>
+  </div>
+  <section id="list"><div class="msg">Loading...</div></section>
+</main>
+<script>
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const fmtDate = iso => new Date(iso + "T00:00:00").toLocaleDateString("en-AU", { day: "numeric", month: "short", year: "numeric" });
+
+  function ago(iso) {
+    const mins = Math.round((Date.now() - new Date(iso)) / 60000);
+    if (mins < 1) return "just now";
+    if (mins < 60) return mins + " min ago";
+    const h = Math.round(mins / 60);
+    return h < 48 ? h + " hr ago" : Math.round(h / 24) + " days ago";
+  }
+
+  fetch("counts.json?t=" + Date.now())
+    .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(data => {
+      document.getElementById("meta").innerHTML =
+        `Since <b>${fmtDate(data.start_date)}</b><br>Updated ${ago(data.generated)}`;
+      const rows = data.counts;
+      if (!rows.length) {
+        document.getElementById("list").innerHTML = '<div class="msg">Nothing on the calendar yet.</div>';
+        return;
+      }
+      const max = Math.max(1, ...rows.map(r => Math.max(r.days_to_date, r.days_booked_ahead)));
+      const pct = n => n ? (n / max) * 100 : 0;
+      document.getElementById("list").innerHTML = rows.map((r, i) => `
+        <div class="row">
+          <div class="rank">${String(i + 1).padStart(2, "0")}</div>
+          <div>
+            <div class="name">${esc(r.title)}</div>
+            <div class="bars">
+              <div class="br" title="Days so far">
+                <div class="track"><div class="fill d" style="width:${pct(r.days_to_date)}%"></div></div>
+                <div class="v">${r.days_to_date}</div>
+              </div>
+              <div class="br" title="Booked ahead">
+                <div class="track"><div class="fill a" style="width:${pct(r.days_booked_ahead)}%"></div></div>
+                <div class="v a">${r.days_booked_ahead}</div>
+              </div>
+            </div>
+          </div>
+        </div>`).join("");
+    })
+    .catch(() => {
+      document.getElementById("meta").textContent = "";
+      document.getElementById("list").innerHTML = '<div class="msg">No data yet. Run the workflow once to generate counts.json.</div>';
+    });
+</script>
+</body>
+</html>
