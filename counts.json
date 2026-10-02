@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-03T06:47:00+10:00",
+  "generated": "2026-10-03T08:44:36+10:00",
   "calendar": "Granny 🩷",
   "start_date": "2026-08-03",
   "today": "2026-10-03",
@@ -19,6 +19,13 @@
       "total": 8
     },
     {
+      "title": "JT",
+      "label": "",
+      "days_to_date": 5,
+      "days_booked_ahead": 3,
+      "total": 8
+    },
+    {
       "title": "Gaye Holland",
       "label": "",
       "days_to_date": 6,
@@ -31,13 +38,6 @@
       "days_to_date": 5,
       "days_booked_ahead": 1,
       "total": 6
-    },
-    {
-      "title": "JT",
-      "label": "",
-      "days_to_date": 5,
-      "days_booked_ahead": 0,
-      "total": 5
     },
     {
       "title": "Sydney",
