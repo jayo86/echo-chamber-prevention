@@ -1,8 +1,8 @@
 {
-  "generated": "2026-10-03T22:35:54+10:00",
+  "generated": "2026-10-04T03:18:28+10:00",
   "calendar": "Granny 🩷",
   "start_date": "2026-08-03",
-  "today": "2026-10-03",
+  "today": "2026-10-04",
   "counts": [
     {
       "title": "Keir's",
@@ -110,14 +110,14 @@
       "total": 2
     },
     {
-      "title": "Peppers",
+      "title": "Sunny Coast",
       "label": "",
-      "days_to_date": 0,
-      "days_booked_ahead": 2,
+      "days_to_date": 1,
+      "days_booked_ahead": 1,
       "total": 2
     },
     {
-      "title": "Sunny Coast",
+      "title": "Peppers",
       "label": "",
       "days_to_date": 0,
       "days_booked_ahead": 2,
