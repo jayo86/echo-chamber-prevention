@@ -1,8 +1,8 @@
 {
-  "generated": "2026-10-04T23:13:40+10:00",
+  "generated": "2026-10-05T03:37:31+10:00",
   "calendar": "Granny 🩷",
   "start_date": "2026-08-03",
-  "today": "2026-10-04",
+  "today": "2026-10-05",
   "counts": [
     {
       "title": "Keir's",
@@ -103,14 +103,14 @@
       "total": 2
     },
     {
-      "title": "Sebastian's",
+      "title": "Sunny Coast",
       "label": "",
-      "days_to_date": 1,
-      "days_booked_ahead": 1,
+      "days_to_date": 2,
+      "days_booked_ahead": 0,
       "total": 2
     },
     {
-      "title": "Sunny Coast",
+      "title": "Sebastian's",
       "label": "",
       "days_to_date": 1,
       "days_booked_ahead": 1,
