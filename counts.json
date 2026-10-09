@@ -1,8 +1,8 @@
 {
-  "generated": "2026-10-09T19:10:35+10:00",
+  "generated": "2026-10-10T02:16:02+10:00",
   "calendar": "Granny 🩷",
   "start_date": "2026-08-03",
-  "today": "2026-10-09",
+  "today": "2026-10-10",
   "counts": [
     {
       "title": "Keir's",
@@ -19,14 +19,14 @@
       "total": 8
     },
     {
-      "title": "Gillespie's",
+      "title": "JT",
       "label": "",
-      "days_to_date": 5,
-      "days_booked_ahead": 3,
+      "days_to_date": 6,
+      "days_booked_ahead": 2,
       "total": 8
     },
     {
-      "title": "JT",
+      "title": "Gillespie's",
       "label": "",
       "days_to_date": 5,
       "days_booked_ahead": 3,
