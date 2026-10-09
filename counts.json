@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-09T12:13:03+10:00",
+  "generated": "2026-10-09T19:10:35+10:00",
   "calendar": "Granny 🩷",
   "start_date": "2026-08-03",
   "today": "2026-10-09",
@@ -19,6 +19,13 @@
       "total": 8
     },
     {
+      "title": "Gillespie's",
+      "label": "",
+      "days_to_date": 5,
+      "days_booked_ahead": 3,
+      "total": 8
+    },
+    {
       "title": "JT",
       "label": "",
       "days_to_date": 5,
@@ -33,10 +40,10 @@
       "total": 7
     },
     {
-      "title": "Gillespie's",
+      "title": "Sebastian's",
       "label": "",
-      "days_to_date": 5,
-      "days_booked_ahead": 1,
+      "days_to_date": 1,
+      "days_booked_ahead": 5,
       "total": 6
     },
     {
@@ -82,7 +89,7 @@
       "total": 3
     },
     {
-      "title": "Gillespie's or Sebastian's",
+      "title": "Gillespies or Sebastian's",
       "label": "",
       "days_to_date": 2,
       "days_booked_ahead": 0,
@@ -107,13 +114,6 @@
       "label": "",
       "days_to_date": 2,
       "days_booked_ahead": 0,
-      "total": 2
-    },
-    {
-      "title": "Sebastian's",
-      "label": "",
-      "days_to_date": 1,
-      "days_booked_ahead": 1,
       "total": 2
     },
     {
