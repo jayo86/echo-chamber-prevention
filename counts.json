@@ -1,8 +1,8 @@
 {
-  "generated": "2026-10-10T23:46:06+10:00",
+  "generated": "2026-10-11T04:39:07+10:00",
   "calendar": "Granny 🩷",
   "start_date": "2026-08-03",
-  "today": "2026-10-10",
+  "today": "2026-10-11",
   "counts": [
     {
       "title": "Keir's",
@@ -21,8 +21,8 @@
     {
       "title": "JT",
       "label": "",
-      "days_to_date": 6,
-      "days_booked_ahead": 2,
+      "days_to_date": 7,
+      "days_booked_ahead": 1,
       "total": 8
     },
     {
