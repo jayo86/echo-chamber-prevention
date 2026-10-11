@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-11T11:56:54+10:00",
+  "generated": "2026-10-11T18:56:58+10:00",
   "calendar": "Granny 🩷",
   "start_date": "2026-08-03",
   "today": "2026-10-11",
@@ -12,17 +12,17 @@
       "total": 20
     },
     {
+      "title": "JT",
+      "label": "",
+      "days_to_date": 7,
+      "days_booked_ahead": 4,
+      "total": 11
+    },
+    {
       "title": "Cormack's",
       "label": "",
       "days_to_date": 8,
       "days_booked_ahead": 0,
-      "total": 8
-    },
-    {
-      "title": "JT",
-      "label": "",
-      "days_to_date": 7,
-      "days_booked_ahead": 1,
       "total": 8
     },
     {
