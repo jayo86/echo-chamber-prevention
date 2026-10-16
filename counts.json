@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-16T08:22:41+10:00",
+  "generated": "2026-10-16T11:24:07+10:00",
   "calendar": "Granny 🩷",
   "start_date": "2026-08-03",
   "today": "2026-10-16",
@@ -8,8 +8,8 @@
       "title": "Keir's",
       "label": "",
       "days_to_date": 20,
-      "days_booked_ahead": 0,
-      "total": 20
+      "days_booked_ahead": 4,
+      "total": 24
     },
     {
       "title": "JT",
