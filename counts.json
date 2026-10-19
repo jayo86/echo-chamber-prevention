@@ -1,8 +1,8 @@
 {
-  "generated": "2026-10-19T17:50:33+10:00",
+  "generated": "2026-10-20T01:39:47+10:00",
   "calendar": "Granny 🩷",
   "start_date": "2026-08-03",
-  "today": "2026-10-19",
+  "today": "2026-10-20",
   "counts": [
     {
       "title": "Keir's",
@@ -63,8 +63,8 @@
     {
       "title": "Sue and gavin",
       "label": "",
-      "days_to_date": 3,
-      "days_booked_ahead": 1,
+      "days_to_date": 4,
+      "days_booked_ahead": 0,
       "total": 4
     },
     {
