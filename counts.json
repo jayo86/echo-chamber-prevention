@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-20T07:06:20+10:00",
+  "generated": "2026-10-20T10:23:34+10:00",
   "calendar": "Granny 🩷",
   "start_date": "2026-08-03",
   "today": "2026-10-20",
@@ -86,6 +86,13 @@
       "label": "",
       "days_to_date": 3,
       "days_booked_ahead": 0,
+      "total": 3
+    },
+    {
+      "title": "Staying at Cormacks x",
+      "label": "",
+      "days_to_date": 0,
+      "days_booked_ahead": 3,
       "total": 3
     },
     {
