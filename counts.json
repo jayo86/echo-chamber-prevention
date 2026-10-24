@@ -1,8 +1,8 @@
 {
-  "generated": "2026-10-24T22:43:00+10:00",
+  "generated": "2026-10-25T02:37:49+10:00",
   "calendar": "Granny 🩷",
   "start_date": "2026-08-03",
-  "today": "2026-10-24",
+  "today": "2026-10-25",
   "counts": [
     {
       "title": "Keir's",
@@ -14,8 +14,8 @@
     {
       "title": "JT",
       "label": "",
-      "days_to_date": 8,
-      "days_booked_ahead": 3,
+      "days_to_date": 9,
+      "days_booked_ahead": 2,
       "total": 11
     },
     {
@@ -54,17 +54,17 @@
       "total": 5
     },
     {
-      "title": "Sue and gavin",
+      "title": "Cormack farm x",
       "label": "",
       "days_to_date": 4,
       "days_booked_ahead": 0,
       "total": 4
     },
     {
-      "title": "Cormack farm x",
+      "title": "Sue and gavin",
       "label": "",
-      "days_to_date": 3,
-      "days_booked_ahead": 1,
+      "days_to_date": 4,
+      "days_booked_ahead": 0,
       "total": 4
     },
     {
