@@ -1,15 +1,15 @@
 {
-  "generated": "2026-10-28T19:44:08+10:00",
+  "generated": "2026-10-29T02:40:42+10:00",
   "calendar": "Granny 🩷",
   "start_date": "2026-08-03",
-  "today": "2026-10-28",
+  "today": "2026-10-29",
   "counts": [
     {
       "title": "Keir's",
       "label": "",
       "days_to_date": 20,
-      "days_booked_ahead": 4,
-      "total": 24
+      "days_booked_ahead": 2,
+      "total": 22
     },
     {
       "title": "JT",
@@ -21,8 +21,8 @@
     {
       "title": "Cormack's",
       "label": "",
-      "days_to_date": 9,
-      "days_booked_ahead": 2,
+      "days_to_date": 10,
+      "days_booked_ahead": 1,
       "total": 11
     },
     {
@@ -37,6 +37,13 @@
       "label": "",
       "days_to_date": 6,
       "days_booked_ahead": 0,
+      "total": 6
+    },
+    {
+      "title": "Cormack Farm x",
+      "label": "",
+      "days_to_date": 3,
+      "days_booked_ahead": 3,
       "total": 6
     },
     {
@@ -66,13 +73,6 @@
       "days_to_date": 4,
       "days_booked_ahead": 0,
       "total": 4
-    },
-    {
-      "title": "Cormack farm x",
-      "label": "",
-      "days_to_date": 3,
-      "days_booked_ahead": 0,
-      "total": 3
     },
     {
       "title": "Main beach",
