@@ -1,8 +1,8 @@
 {
-  "generated": "2026-10-29T18:33:26+10:00",
+  "generated": "2026-10-30T02:11:09+10:00",
   "calendar": "Granny 🩷",
   "start_date": "2026-08-03",
-  "today": "2026-10-29",
+  "today": "2026-10-30",
   "counts": [
     {
       "title": "Keir's",
@@ -12,17 +12,17 @@
       "total": 22
     },
     {
-      "title": "JT",
+      "title": "Cormack's",
       "label": "",
       "days_to_date": 11,
       "days_booked_ahead": 0,
       "total": 11
     },
     {
-      "title": "Cormack's",
+      "title": "JT",
       "label": "",
-      "days_to_date": 10,
-      "days_booked_ahead": 1,
+      "days_to_date": 11,
+      "days_booked_ahead": 0,
       "total": 11
     },
     {
