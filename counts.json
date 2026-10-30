@@ -1,8 +1,8 @@
 {
-  "generated": "2026-10-30T17:11:38+10:00",
+  "generated": "2026-10-31T00:13:57+10:00",
   "calendar": "Granny 🩷",
   "start_date": "2026-08-03",
-  "today": "2026-10-30",
+  "today": "2026-10-31",
   "counts": [
     {
       "title": "Keir's",
@@ -63,8 +63,8 @@
     {
       "title": "Palm Cove",
       "label": "",
-      "days_to_date": 0,
-      "days_booked_ahead": 5,
+      "days_to_date": 1,
+      "days_booked_ahead": 4,
       "total": 5
     },
     {
