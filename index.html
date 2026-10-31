@@ -81,6 +81,31 @@
   .v { font-family: "JetBrains Mono", monospace; font-size: 0.9rem; text-align: right; }
   .v.a { color: var(--muted); }
   .msg { color: var(--muted); padding: 40px 0; text-align: center; }
+
+  /* Click a card to open its details */
+  .row { cursor: pointer; }
+  .row:hover { background: #1f1f1f; }
+  .row.open { cursor: default; background: var(--panel); }
+  .chev { color: var(--muted); font-size: 0.75rem; margin-left: 6px; display: inline-block; transition: transform .15s; }
+  .row.open .chev { transform: rotate(90deg); }
+  .details { grid-column: 1 / -1; border-top: 1px solid var(--line); padding-top: 14px; display: grid; gap: 16px; cursor: default; }
+  .details h4 { margin: 0 0 8px; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); font-weight: 600; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { font-family: "JetBrains Mono", monospace; font-size: 0.78rem; padding: 4px 8px; border-radius: 6px; background: #0aa37f22; border: 1px solid #0aa37f55; }
+  .chip.a { background: #d9a44122; border-color: #d9a44166; }
+  .chip.plain { background: transparent; border-color: var(--line); font-family: inherit; }
+  .chip .n { color: var(--muted); margin-left: 4px; }
+  .chip button { all: unset; cursor: pointer; color: var(--accent); margin-left: 8px; font-weight: 700; }
+  .none { color: var(--muted); font-size: 0.85rem; }
+  .edit { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .edit select, .edit input {
+    font: inherit; font-size: 0.85rem; color: var(--text); background: var(--bg);
+    border: 1px solid var(--line); border-radius: 8px; padding: 7px 10px; min-width: 0;
+  }
+  .edit select { flex: 1 1 180px; }
+  .edit input { flex: 0 1 130px; }
+  .hint { font-size: 0.78rem; color: var(--muted); margin-top: 6px; }
+  .hint.err { color: var(--accent); }
 </style>
 </head>
 <body>
@@ -143,15 +168,17 @@
     }
     const max = Math.max(1, ...rows.map(r => Math.max(r.days_to_date, r.days_booked_ahead)));
     const pct = n => n ? (n / max) * 100 : 0;
+    current = data;
     document.getElementById("list").innerHTML = rows.map((r, i) => {
       const place = i + 1;
       const rank = place <= 3 ? trophy(place) : String(place).padStart(2, "0");
+      const isOpen = openCards.has(r.title);
       return `
-      <div class="row ${place <= 3 ? "p" + place : ""}">
+      <div class="row ${place <= 3 ? "p" + place : ""} ${isOpen ? "open" : ""}" data-title="${esc(r.title)}">
         <div class="rank">${rank}</div>
         <div>
           <div class="namerow">
-            <div class="name">${esc(r.title)}</div>
+            <div class="name">${esc(r.title)}<span class="chev">&#9654;</span></div>
             <div class="tot"><b>${r.total}</b> total</div>
           </div>
           <div class="bars">
@@ -165,9 +192,117 @@
             </div>
           </div>
         </div>
+        ${isOpen ? details(r, rows, data.today) : ""}
       </div>`;
     }).join("");
+    document.querySelectorAll("[data-pin]").forEach(i => { i.value = savedPin(); });
   }
+
+  // ---- Card details ----
+  let current = null;
+  const openCards = new Set();
+  const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+  // ["2026-08-03","2026-08-04","2026-08-05","2026-09-01"] -> ["3–5 Aug", "1 Sep"]
+  function ranges(dates, today) {
+    const thisYear = (today || "").slice(0, 4);
+    const fmt = (iso, withMonth = true) => {
+      const [y, m, d] = iso.split("-");
+      return `${+d}${withMonth ? " " + MONTHS[+m - 1] : ""}${withMonth && y !== thisYear ? " " + y : ""}`;
+    };
+    const next = iso => { const d = new Date(iso + "T00:00:00Z"); d.setUTCDate(d.getUTCDate() + 1); return d.toISOString().slice(0, 10); };
+    const out = [];
+    let start = null, prev = null;
+    for (const d of [...dates, null]) {
+      if (start && d === next(prev)) { prev = d; continue; }
+      if (start) {
+        if (start === prev) out.push(fmt(start));
+        else if (start.slice(0, 7) === prev.slice(0, 7)) out.push(`${fmt(start, false)}–${fmt(prev)}`);
+        else out.push(`${fmt(start)} – ${fmt(prev)}`);
+      }
+      start = prev = d;
+    }
+    return out;
+  }
+
+  function details(r, rows, today) {
+    const chips = (dates, cls) => {
+      const rs = ranges(dates, today);
+      return rs.length ? `<div class="chips">${rs.map(x => `<span class="chip ${cls}">${x}</span>`).join("")}</div>` : `<div class="none">None</div>`;
+    };
+    const spellings = r.spellings.map(s => `<span class="chip plain">${esc(s.spelling)}<span class="n">&times;${s.events}</span></span>`).join("");
+    const merged = (r.merged || []).length
+      ? `<div class="chips">${r.merged.map(m => `<span class="chip plain">${esc(m)}<button type="button" data-unmerge="${esc(m)}" title="Count it separately again">Undo</button></span>`).join("")}</div>`
+      : `<div class="none">Nothing merged in by hand.</div>`;
+    const others = rows.filter(o => o.title !== r.title).map(o => o.title).sort((a, b) => a.localeCompare(b));
+    return `
+      <div class="details">
+        <div><h4>Days so far (${r.days_to_date})</h4>${chips(r.dates_to_date, "")}</div>
+        <div><h4>Booked ahead (${r.days_booked_ahead})</h4>${chips(r.dates_ahead, "a")}</div>
+        <div><h4>Spelled on the calendar as</h4><div class="chips">${spellings}</div>
+          <div class="hint">Differences in apostrophes, capitals and a trailing "?" are merged automatically.</div></div>
+        <div><h4>Merged in by hand</h4>${merged}</div>
+        <div><h4>Count ${esc(r.title)} as someone else</h4>
+          <div class="edit">
+            <select data-merge-to><option value="">Pick a name...</option>${others.map(o => `<option>${esc(o)}</option>`).join("")}</select>
+            <input type="password" placeholder="Edit PIN" data-pin autocomplete="off">
+            <button type="button" class="refresh" data-merge>Merge</button>
+          </div>
+          <div class="hint" data-msg>Their days get added to that person (shared days only count once). You can undo it from that person's card.</div>
+        </div>
+      </div>`;
+  }
+
+  function savedPin() { try { return sessionStorage.getItem("ecpc-pin") || ""; } catch (e) { return ""; } }
+  function rememberPin(p) { try { sessionStorage.setItem("ecpc-pin", p); } catch (e) {} }
+
+  async function edit(path, body, msgEl, button) {
+    if (!body.pin) { msgEl.textContent = "Enter the edit PIN first."; msgEl.classList.add("err"); return; }
+    button.disabled = true;
+    msgEl.classList.remove("err");
+    msgEl.textContent = "Saving...";
+    try {
+      const res = await fetch(WORKER_URL + path, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+      const data = await res.json();
+      if (data.error) throw new Error(data.error);
+      rememberPin(body.pin);
+      if (path === "/merge") { openCards.delete(body.from); openCards.add(body.to); }
+      else openCards.add(body.from);
+      render(data);
+      say(path === "/merge" ? `Merged "${body.from}" into "${body.to}".` : `"${body.from}" is counted separately again.`);
+      document.querySelector(`.row[data-title="${CSS.escape(path === "/merge" ? body.to : body.from)}"]`)?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    } catch (e) {
+      msgEl.textContent = e.message || "Something went wrong.";
+      msgEl.classList.add("err");
+      button.disabled = false;
+    }
+  }
+
+  document.getElementById("list").addEventListener("click", e => {
+    const row = e.target.closest(".row");
+    if (!row) return;
+    const title = row.dataset.title;
+
+    const unmergeBtn = e.target.closest("[data-unmerge]");
+    if (unmergeBtn) {
+      const pin = row.querySelector("[data-pin]").value || savedPin();
+      return edit("/unmerge", { from: unmergeBtn.dataset.unmerge, pin }, row.querySelector("[data-msg]"), unmergeBtn);
+    }
+    const mergeBtn = e.target.closest("[data-merge]");
+    if (mergeBtn) {
+      const to = row.querySelector("[data-merge-to]").value;
+      const msgEl = row.querySelector("[data-msg]");
+      if (!to) { msgEl.textContent = "Pick who to count them as."; msgEl.classList.add("err"); return; }
+      const pin = row.querySelector("[data-pin]").value || savedPin();
+      return edit("/merge", { from: title, to, pin }, msgEl, mergeBtn);
+    }
+    if (e.target.closest(".details")) return; // clicks inside the open panel don't close it
+
+    openCards.has(title) ? openCards.delete(title) : openCards.add(title);
+    render(current);
+    const pinInput = document.querySelector(`.row[data-title="${CSS.escape(title)}"] [data-pin]`);
+    if (pinInput) pinInput.value = savedPin();
+  });
 
   // ---- Data comes straight from the Worker, which pulls from TimeTree ----
   const WORKER_URL = "https://echo-chamber.tamandjoel.workers.dev";
