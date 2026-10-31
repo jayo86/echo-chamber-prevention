@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-01T03:46:15+10:00",
+  "generated": "2026-11-01T07:38:59+10:00",
   "calendar": "Granny 🩷",
   "start_date": "2026-08-03",
   "today": "2026-11-01",
@@ -7,23 +7,23 @@
     {
       "title": "Keir's",
       "label": "",
-      "days_to_date": 20,
+      "days_to_date": 21,
       "days_booked_ahead": 2,
-      "total": 22
+      "total": 23
+    },
+    {
+      "title": "Cormack's",
+      "label": "",
+      "days_to_date": 14,
+      "days_booked_ahead": 3,
+      "total": 17
     },
     {
       "title": "JT",
       "label": "",
       "days_to_date": 11,
-      "days_booked_ahead": 3,
-      "total": 14
-    },
-    {
-      "title": "Cormack's",
-      "label": "",
-      "days_to_date": 11,
-      "days_booked_ahead": 0,
-      "total": 11
+      "days_booked_ahead": 6,
+      "total": 17
     },
     {
       "title": "Gaye Holland",
@@ -35,12 +35,12 @@
     {
       "title": "Gillespie's",
       "label": "",
-      "days_to_date": 6,
+      "days_to_date": 7,
       "days_booked_ahead": 0,
-      "total": 6
+      "total": 7
     },
     {
-      "title": "Cormack Farm x",
+      "title": "Sebastian's",
       "label": "",
       "days_to_date": 3,
       "days_booked_ahead": 3,
@@ -55,13 +55,6 @@
     },
     {
       "title": "Palm Cove",
-      "label": "",
-      "days_to_date": 2,
-      "days_booked_ahead": 3,
-      "total": 5
-    },
-    {
-      "title": "Sebastian's",
       "label": "",
       "days_to_date": 2,
       "days_booked_ahead": 3,
@@ -96,27 +89,6 @@
       "total": 3
     },
     {
-      "title": "Having Cormack Boys Weds 2nd pls x",
-      "label": "",
-      "days_to_date": 0,
-      "days_booked_ahead": 3,
-      "total": 3
-    },
-    {
-      "title": "Staying at Cormacks x",
-      "label": "",
-      "days_to_date": 0,
-      "days_booked_ahead": 3,
-      "total": 3
-    },
-    {
-      "title": "Gillespies or Sebastian's",
-      "label": "",
-      "days_to_date": 2,
-      "days_booked_ahead": 0,
-      "total": 2
-    },
-    {
       "title": "Julianne",
       "label": "",
       "days_to_date": 2,
@@ -143,13 +115,6 @@
       "days_to_date": 2,
       "days_booked_ahead": 0,
       "total": 2
-    },
-    {
-      "title": "Gillespies x",
-      "label": "",
-      "days_to_date": 1,
-      "days_booked_ahead": 0,
-      "total": 1
     },
     {
       "title": "Mary mckillop",
