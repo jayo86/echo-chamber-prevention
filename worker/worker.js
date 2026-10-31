@@ -20,7 +20,12 @@ const CACHE_HOURS = 24;
 const REFRESH_COOLDOWN_SECONDS = 60;
 
 const API = "https://timetreeapp.com/api/v1";
-const TT_HEADERS = { "Content-Type": "application/json", "X-Timetreea": "web/2.1.0/en" };
+const TT_HEADERS = {
+  "Content-Type": "application/json",
+  Accept: "application/json",
+  "X-Timetreea": "web/2.1.0/en",
+  "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36",
+};
 
 // Kept in memory while Cloudflare keeps this Worker warm. Best effort, not permanent.
 let pulled = null; // { events, calendar, at }
@@ -33,14 +38,15 @@ async function login(email, password) {
   const r = await fetch(`${API}/auth/email/signin`, {
     method: "PUT",
     headers: TT_HEADERS,
-    body: JSON.stringify({ uid: email, password, uuid: crypto.randomUUID().replace(/-/g, "") }),
+    body: JSON.stringify({ uid: email.trim(), password, uuid: crypto.randomUUID().replace(/-/g, "") }),
   });
   if (r.status !== 200) {
+    const text = await r.text().catch(() => "");
     let code = null;
-    try { code = (await r.json())?.error?.code; } catch {}
+    try { code = JSON.parse(text)?.error?.code; } catch {}
     if (code === -702) throw new Error("TimeTree login failed: wrong email or password");
     if (code === -495) throw new Error("TimeTree is rate limiting logins, try again later");
-    throw new Error(`TimeTree login failed (${r.status})`);
+    throw new Error(`TimeTree login failed (${r.status}): ${text.replace(/\s+/g, " ").slice(0, 200) || "no details"}`);
   }
   const cookies = r.headers.getSetCookie ? r.headers.getSetCookie() : [r.headers.get("set-cookie") || ""];
   for (const c of cookies) {
